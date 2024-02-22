@@ -1,0 +1,7 @@
+---
+- name: Run VPN
+  hosts: wifes-workspace
+  become: true
+  roles:
+  - install_docker
+  - create_vpn_container

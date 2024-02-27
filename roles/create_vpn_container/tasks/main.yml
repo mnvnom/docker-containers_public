@@ -19,5 +19,5 @@
           VPNCMD_HUB: "HubCreate hub_name:hub_pw"
         capabilities:
           - NET_ADMIN
-        # networks:
-        #   - name: prometheus-network
+        networks:
+          - name: prometheus-network

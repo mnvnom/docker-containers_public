@@ -23,6 +23,18 @@
      apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
         state: present
+        
+   - name: install pip for python 3
+     apt:
+       name: python3-pip
+       state: present
+     become: true
+     when: ansible_python.version.major == 3
+
+   - name: install python docker module
+     pip:
+       name: docker
+       state: present
 
    - name: Update apt cache (again)
      apt:
@@ -32,3 +44,8 @@
      apt:
       name: docker-ce
       state: present
+   
+   - name: Create Docker network
+     docker_network:
+       name: prometheus-network
+     

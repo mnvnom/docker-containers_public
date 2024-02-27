@@ -1,2 +1,55 @@
 ---
-# tasks file for create_monitoring_container
+- name: Pull Prometheus image
+  docker_image:
+    name: ubuntu/prometheus:2.49.1-22.04_stable
+
+- name: Pull Node Exporter image
+  docker_image:
+    name: quay.io/prometheus/node-exporter
+    tag: latest
+
+- name: Create Prometheus container
+  docker_container:
+    name: prometheus_container
+    image: ubuntu/prometheus:2.49.1-22.04_stable
+    state: started
+    ports:
+      - "9090:9090"
+    networks:
+      - name: prometheus-network
+    restart_policy: always
+
+- name: Create Prometheus configuration directory
+  file:
+    path: /etc/prometheus
+    state: directory
+    
+- name: Copy Prometheus configuration file using template
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
+
+- name: Create Node Exporter container
+  docker_container:
+    name: node_exporter_container
+    image: quay.io/prometheus/node-exporter:latest
+    state: started
+    ports:
+      - "9100:9100"
+    networks:
+      - name: prometheus-network
+
+- name: Pull Grafana image
+  docker_image:
+    name: grafana/grafana
+    state: present
+
+- name: Create Grafana container
+  docker_container:
+    name: grafana_container
+    image: grafana/grafana
+    state: started
+    ports:
+      - "3000:3000"
+    networks:
+      - name: prometheus-network

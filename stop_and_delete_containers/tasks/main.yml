@@ -1,2 +1,8 @@
 ---
-# tasks file for stop_and_delete_containers
+- name: Stop all containers
+  shell: docker stop $(docker ps -aq)
+  ignore_errors: yes
+
+- name: Remove all containers
+  shell: docker rm $(docker ps -aq)
+  ignore_errors: yes

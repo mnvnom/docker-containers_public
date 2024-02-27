@@ -1,0 +1,6 @@
+---
+- name: Run monitoring containers
+  hosts: wifes-workspace
+  become: true
+  roles:
+  - create_monitoring_container

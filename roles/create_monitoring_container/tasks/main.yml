@@ -1,13 +1,4 @@
 ---
-- name: Pull Prometheus image
-  docker_image:
-    name: ubuntu/prometheus:2.49.1-22.04_stable
-
-- name: Pull Node Exporter image
-  docker_image:
-    name: quay.io/prometheus/node-exporter
-    tag: latest
-
 - name: Create Prometheus container
   docker_container:
     name: prometheus_container
@@ -38,11 +29,6 @@
       - "9100:9100"
     networks:
       - name: prometheus-network
-
-- name: Pull Grafana image
-  docker_image:
-    name: grafana/grafana
-    state: present
 
 - name: Create Grafana container
   docker_container:

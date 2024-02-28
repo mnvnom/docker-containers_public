@@ -1,6 +1,0 @@
----
-- name: Stop and delete containers
-  hosts: wifes-workspace
-  become: true
-  roles:
-  - stop_and_delete_containers

@@ -1,2 +1,22 @@
 ---
-# tasks file for create_jenkins_container
+- name: Run Jenkins container
+  docker_container:
+    name: jenkins
+    image: jenkins/jenkins:lts
+    state: started
+    ports:
+     - "8080:8080"
+    restart_policy: always
+    networks:
+    - name: prometheus-network
+
+- name: Pause for Jenkins container up
+  pause:
+    seconds: 10
+
+- name: Retrieve Initial Admin Password
+  shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
+  register: initial_admin_password
+
+- debug:
+    var: initial_admin_password.stdout

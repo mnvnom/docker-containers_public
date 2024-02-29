@@ -16,7 +16,7 @@ pipeline {
         stage('Deploy Containers') {
             steps {
                 script {
-                    def deployCmd = 'ansible-playbook playbooks/all_containers.yml -i inventory/inventory.yml --tags=run_all_containers'
+                    def deployCmd = 'ansible-playbook playbooks/all_containers.yml -i inventory/inventory.yml --tags=test_deployment'
                     def deployResult = sh(script: deployCmd, returnStatus: true)
                     if (deployResult != 0) {
                         error "Failed to deploy containers"
@@ -42,11 +42,13 @@ pipeline {
 
     post {
         always {
-            def jenkinsContainerId = sh(script: 'docker ps -q --filter "name=jenkins"', returnStdout: true).trim()
-            def allContainers = sh(script: 'docker ps -a -q', returnStdout: true).trim().split('\n')
-            for (containerId in allContainers) {
-                if (containerId != jenkinsContainerId) {
-                    sh "docker stop ${containerId} && docker rm ${containerId}"
+            script {
+                def jenkinsContainerId = sh(script: 'docker ps -q --filter "name=jenkins"', returnStdout: true).trim()
+                def allContainers = sh(script: 'docker ps -a -q', returnStdout: true).trim().split('\n')
+                for (containerId in allContainers) {
+                    if (containerId != jenkinsContainerId) {
+                        sh "docker stop ${containerId} && docker rm ${containerId}"
+                    }
                 }
             }
         }

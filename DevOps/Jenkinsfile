@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Deploy Containers') {
+        steps {
+            script {
+                // Чтение содержимого файла inventory.yml
+                def inventoryFile = readFile('inventory/inventory.yml')
+                echo "12 Содержимое файла inventory.yml:"
+                echo inventoryFile }
+                }
+            }
+    }
+}

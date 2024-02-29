@@ -1,8 +1,8 @@
 ---
 - name: Stop all containers
   shell: docker stop $(docker ps -aq)
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: Remove all containers
   shell: docker rm $(docker ps -aq)
-  ignore_errors: yes
+  ignore_errors: true

@@ -5,10 +5,10 @@
     image: jenkins/jenkins:lts
     state: started
     ports:
-     - "8080:8080"
+      - "8080:8080"
     restart_policy: always
     networks:
-    - name: prometheus-network
+      - name: prometheus-network
 
 - name: Pause for Jenkins container up
   pause:
@@ -21,6 +21,7 @@
   shell: docker exec -it -u root jenkins apt-get install -y yamllint
 
 - name: Retrieve Initial Admin Password
+# yamllint disable-line rule:line-length
   shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
   register: initial_admin_password
 

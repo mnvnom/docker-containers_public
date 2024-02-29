@@ -8,4 +8,5 @@ all:
 prod:
   hosts:
     wifes-workspace:
-      ansible_host: 94.141.98.35 
+      ansible_host: 94.141.98.35
+  ignore_duplicates: yes

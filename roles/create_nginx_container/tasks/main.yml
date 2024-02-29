@@ -11,8 +11,8 @@
     image: nginx
     state: started
     ports:
-     - "80:80"
+      - "80:80"
     volumes:
-     - /path/to/index.html:/usr/share/nginx/html/index.html
+      - /path/to/index.html:/usr/share/nginx/html/index.html
     networks:
-     - name: prometheus-network
+      - name: prometheus-network

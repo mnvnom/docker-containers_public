@@ -19,6 +19,17 @@
   tags:
   - remove_containers
 
+- name: Test for CI/CD
+  hosts: wifes-workspace
+  become: true
+  roles:
+  - install_docker
+  - create_vpn_container
+  - create_monitoring_container
+  - create_nginx_container
+  tags:
+  - test_deployment
+
 - name: Run VPN
   hosts: wifes-workspace
   become: true

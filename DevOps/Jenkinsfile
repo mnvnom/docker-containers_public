@@ -13,7 +13,7 @@ pipeline {
             }
         }
 
-        stage('Deploy Conteiners') {
+        stage('Deploy Containers') {
             steps {
                 script {
                     def deployCmd = 'ansible-playbook playbooks/all_containers.yml -i inventory/inventory.yml --tags=run_all_containers'
@@ -25,7 +25,7 @@ pipeline {
             }
         }
 
-        stage('Check Conteiners') {
+        stage('Check Containers') {
             steps {
                 script {
                     def containers = sh(script: 'docker ps -q', returnStdout: true).trim().split('\n')
@@ -40,9 +40,15 @@ pipeline {
         }
     }
 
-//     post {
-//         always {
-//             sh 'docker stop $(docker ps -q -a) && docker rm $(docker ps -q -a)'
-//         }
-//     }
-// }
+    post {
+        always {
+            def jenkinsContainerId = sh(script: 'docker ps -q --filter "name=jenkins"', returnStdout: true).trim()
+            def allContainers = sh(script: 'docker ps -a -q', returnStdout: true).trim().split('\n')
+            for (containerId in allContainers) {
+                if (containerId != jenkinsContainerId) {
+                    sh "docker stop ${containerId} && docker rm ${containerId}"
+                }
+            }
+        }
+    }
+}

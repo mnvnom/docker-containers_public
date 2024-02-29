@@ -3,62 +3,62 @@
   hosts: wifes-workspace
   become: true
   roles:
-  - install_docker
-  - create_vpn_container
-  - create_monitoring_container
-  - create_nginx_container
-  - create_jenkins_container
+   - install_docker
+   - create_vpn_container
+   - create_monitoring_container
+   - create_nginx_container
+   - create_jenkins_container
   tags:
-  - run_all_containers
+   - run_all_containers
 
 - name: Stop and delete containers
   hosts: wifes-workspace
   become: true
   roles:
-  - stop_and_delete_containers
+   - stop_and_delete_containers
   tags:
-  - remove_containers
+   - remove_containers
 
 - name: Test for CI/CD
   hosts: wifes-workspace
   become: true
   roles:
-  - install_docker
-  - create_vpn_container
-  - create_monitoring_container
-  - create_nginx_container
+   - install_docker
+   - create_vpn_container
+   - create_monitoring_container
+   - create_nginx_container
   tags:
-  - test_deployment
+   - test_deployment
 
 - name: Run VPN
   hosts: wifes-workspace
   become: true
   roles:
-  - install_docker
-  - create_vpn_container
+   - install_docker
+   - create_vpn_container
   tags:
-  - run_vpn
+   - run_vpn
 
 - name: Run monitoring containers
   hosts: wifes-workspace
   become: true
   roles:
-  - create_monitoring_container
+   - create_monitoring_container
   tags:
-  - run_monitoring
+   - run_monitoring
 
 - name: Run nginx
   hosts: wifes-workspace
   become: true
   roles:
-  - create_nginx_container
+   - create_nginx_container
   tags:
-  - run_nginx
+   - run_nginx
 
 - name: Run jenkins
   hosts: wifes-workspace
   become: true
   roles:
-  - create_jenkins_container
+   - create_jenkins_container
   tags:
-  - run_jenkins
+   - run_jenkins

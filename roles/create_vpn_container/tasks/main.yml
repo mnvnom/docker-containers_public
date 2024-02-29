@@ -1,23 +1,23 @@
 ---
-   - name: Run SoftEther VPN Server container
-     docker_container:
-        name: softether_vpn
-        image: siomiz/softethervpn
-        state: started
-        ports:
-          - "500:500/udp"
-          - "4500:4500/udp"
-          - "1701:1701/tcp"
-          - "1194:1194/udp"
-          - "5555:5555/tcp"
-        env:
-          PSK: "my_psk"
-          USERS: "admin:admin;yanochka:12345678"
-          SPW: "12345678"
-          HPW: "12345678"
-          VPNCMD_SERVER: "ServerPasswordSet server_pw"
-          VPNCMD_HUB: "HubCreate hub_name:hub_pw"
-        capabilities:
-          - NET_ADMIN
-        networks:
-          - name: prometheus-network
+- name: Run SoftEther VPN Server container
+  docker_container:
+    name: softether_vpn
+    image: siomiz/softethervpn
+    state: started
+    ports:
+      - "500:500/udp"
+      - "4500:4500/udp"
+      - "1701:1701/tcp"
+      - "1194:1194/udp"
+      - "5555:5555/tcp"
+    env:
+      PSK: "my_psk"
+      USERS: "admin:admin;yanochka:12345678"
+      SPW: "12345678"
+      HPW: "12345678"
+      VPNCMD_SERVER: "ServerPasswordSet server_pw"
+      VPNCMD_HUB: "HubCreate hub_name:hub_pw"
+    capabilities:
+      - NET_ADMIN
+    networks:
+      - name: prometheus-network

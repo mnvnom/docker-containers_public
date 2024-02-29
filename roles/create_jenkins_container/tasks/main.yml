@@ -14,6 +14,12 @@
   pause:
     seconds: 10
 
+- name: Update inside Jenkins container
+  shell: docker exec -it -u root jenkins apt-get update
+
+- name: Install yamllint inside Jenkins container
+  shell: docker exec -it -u root jenkins apt-get install -y yamllint
+
 - name: Retrieve Initial Admin Password
   shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword
   register: initial_admin_password

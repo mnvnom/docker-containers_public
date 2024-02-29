@@ -7,12 +7,12 @@
 
 - name: Run Nginx container
   docker_container:
-   name: my_nginx_container
-   image: nginx
-   state: started
-   ports:
-    - "80:80"
-   volumes:
-    - /path/to/index.html:/usr/share/nginx/html/index.html
-   networks:
-    - name: prometheus-network
+    name: my_nginx_container
+    image: nginx
+    state: started
+    ports:
+     - "80:80"
+    volumes:
+     - /path/to/index.html:/usr/share/nginx/html/index.html
+    networks:
+     - name: prometheus-network

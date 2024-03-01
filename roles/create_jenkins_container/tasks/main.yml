@@ -32,6 +32,15 @@
 - name: Add jenkins user in group sudo
   shell: docker exec -it -u root jenkins usermod -aG sudo jenkins
 
+- name: Install nano inside Jenkins container
+  shell: docker exec -it -u root jenkins apt-get install nano
+
+- name: Replace line in file
+  ansible.builtin.lineinfile:
+    path: /etc/sudoers
+    regexp: '^%sudo\s*ALL=(ALL:ALL) ALL$'
+    line: '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL'
+
 - name: Retrieve Initial Admin Password
 # yamllint disable-line rule:line-length
   shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword

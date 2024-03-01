@@ -24,7 +24,6 @@
   connection: local
   become: true
   roles:
-   - install_docker
    - create_vpn_container
    - create_monitoring_container
    - create_nginx_container

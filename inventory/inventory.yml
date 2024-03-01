@@ -1,9 +1,9 @@
 all:
   vars:
     ansible_user: root
-# yamllint disable-line rule:key-duplicates
-    ansible_ssh_private_key_file: /home/andrey/.ssh/id_ed25519
-    ansible_ssh_private_key_file: /home/mnvnom/.ssh/id_ed25519
+    ansible_ssh_private_key_file:
+      - /home/andrey/.ssh/id_ed25519
+      - /home/mnvnom/.ssh/id_ed25519
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 prod:

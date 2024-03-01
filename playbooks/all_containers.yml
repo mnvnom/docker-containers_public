@@ -20,7 +20,8 @@
    - remove_containers
 
 - name: Test for CI/CD
-  hosts: wifes-workspace
+  hosts: jenkins_CI/CDP
+  connection: local
   become: true
   roles:
    - install_docker

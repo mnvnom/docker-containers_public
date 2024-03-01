@@ -1,11 +1,16 @@
 all:
   vars:
     ansible_user: root
-    ansible_ssh_private_key_file: /home/andrey/.ssh/id_ed25519
-    #ansible_ssh_private_key_file_2: /home/mnvnom/.ssh/id_ed25519
+    ansible_ssh_private_key_file_1: /home/andrey/.ssh/id_ed25519
+    ansible_ssh_private_key_file_2: /home/mnvnom/.ssh/id_ed25519
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 
 prod:
   hosts:
     wifes-workspace:
       ansible_host: 94.141.98.35
+
+jenkins_CI/CDP:
+  hosts:
+    jenkins_CI/CDP:
+      ansible_host: localhost

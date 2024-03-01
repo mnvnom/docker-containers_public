@@ -20,6 +20,12 @@
 - name: Install yamllint inside Jenkins container
   shell: docker exec -it -u root jenkins apt-get install -y yamllint
 
+- name: Install ansible inside Jenkins container
+  shell: docker exec -it -u root jenkins apt-get install -y ansible
+
+- name: Install docker inside Jenkins container
+  shell: docker exec -it -u root jenkins apt-get install -y docker.io
+
 - name: Retrieve Initial Admin Password
 # yamllint disable-line rule:line-length
   shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword

@@ -41,6 +41,9 @@
     regexp: '^%sudo\s*ALL=(ALL:ALL) ALL$'
     line: '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL'
 
+# - name: Add line in sudoers inside Jenkins container
+#   shell: docker exec -it -u root jenkins echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 - name: Retrieve Initial Admin Password
 # yamllint disable-line rule:line-length
   shell: docker exec -it jenkins cat /var/jenkins_home/secrets/initialAdminPassword

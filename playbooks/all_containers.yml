@@ -22,7 +22,6 @@
 - name: Test for CI/CD
   hosts: jenkins_CI/CDP
   connection: local
-  become: true
   roles:
    - install_docker
    - create_vpn_container

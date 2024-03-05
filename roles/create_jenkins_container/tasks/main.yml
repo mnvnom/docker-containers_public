@@ -9,6 +9,9 @@
     restart_policy: always
     networks:
       - name: prometheus-network
+    privileged: yes
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
 
 - name: Pause for Jenkins container up
   pause:
@@ -41,9 +44,9 @@
     regexp: '^%sudo\s*ALL=(ALL:ALL) ALL$'
     line: '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL'
 
-# - name: Add line in sudoers inside Jenkins container
+- name: Add line in sudoers inside Jenkins container
 # yamllint disable-line rule:line-length
-#   shell: docker exec -it -u root jenkins echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+  shell: "docker exec -it -u root jenkins sh -c 'echo \"jenkins ALL=(ALL) NOPASSWD: ALL\" >> /etc/sudoers'"
 
 - name: Retrieve Initial Admin Password
 # yamllint disable-line rule:line-length

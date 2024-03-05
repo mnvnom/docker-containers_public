@@ -59,6 +59,7 @@
   hosts: wifes-workspace
   become: true
   roles:
+   - install_docker
    - create_jenkins_container
   tags:
    - run_jenkins

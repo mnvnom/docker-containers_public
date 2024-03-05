@@ -1,8 +1,14 @@
 ---
+- name: create directory for index.html
+  file:
+    path: /opt/front
+    state: directory
+    mode: '0755'
+
 - name: Generate index.html from template
   template:
     src: templates/index.html.j2
-    dest: /path/to/index.html
+    dest: /opt/front/index.html
     mode: 0644
 
 - name: Run Nginx container
@@ -13,6 +19,6 @@
     ports:
       - "80:80"
     volumes:
-      - /path/to/index.html:/usr/share/nginx/html/index.html
+      - /opt/front/index.html:/usr/share/nginx/html/index.html
     networks:
       - name: prometheus-network

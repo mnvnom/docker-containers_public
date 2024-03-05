@@ -32,6 +32,9 @@
 - name: Install sudo inside Jenkins container
   shell: docker exec -it -u root jenkins apt-get install sudo
 
+- name: Add jenkins user in group docker
+  shell: docker exec -it -u root jenkins usermod -aG docker jenkins
+
 - name: Add jenkins user in group sudo
   shell: docker exec -it -u root jenkins usermod -aG sudo jenkins
 

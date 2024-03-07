@@ -41,11 +41,11 @@
 - name: Install nano inside Jenkins container
   shell: docker exec -it -u root jenkins apt-get install nano
 
-- name: Replace line in file
-  ansible.builtin.lineinfile:
-    path: /etc/sudoers
-    regexp: '^%sudo\s*ALL=(ALL:ALL) ALL$'
-    line: '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL'
+# - name: Replace line in file
+#   ansible.builtin.lineinfile:
+#     path: /etc/sudoers
+#     regexp: '^%sudo\s*ALL=(ALL:ALL) ALL$'
+#     line: '%sudo   ALL=(ALL:ALL) NOPASSWD: ALL'
 
 - name: Add line in sudoers inside Jenkins container
 # yamllint disable-line rule:line-length

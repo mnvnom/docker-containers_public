@@ -41,6 +41,9 @@
 - name: Install nano inside Jenkins container
   shell: docker exec -it -u root jenkins apt-get install nano
 
+# - name: Changing access rights to docker socket
+#   shell: docker exec -it -u root jenkins chown jenkins:jenkins /var/run/docker.sock && chmod 666 /var/run/docker.sock
+
 # - name: Replace line in file
 #   ansible.builtin.lineinfile:
 #     path: /etc/sudoers

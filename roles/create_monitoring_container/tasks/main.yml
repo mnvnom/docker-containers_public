@@ -1,15 +1,4 @@
 ---
-- name: Create Prometheus container
-  docker_container:
-    name: prometheus_container
-    image: ubuntu/prometheus:2.49.1-22.04_stable
-    state: started
-    ports:
-      - "9090:9090"
-    networks:
-      - name: prometheus-network
-    restart_policy: always
-
 - name: Create Prometheus configuration directory
   file:
     path: /etc/prometheus
@@ -19,6 +8,19 @@
   template:
     src: prometheus.yml.j2
     dest: /etc/prometheus/prometheus.yml
+
+- name: Create Prometheus container
+  docker_container:
+    name: prometheus_container
+    image: ubuntu/prometheus:2.49.1-22.04_stable
+    state: started
+    ports:
+      - "9090:9090"
+    networks:
+      - name: prometheus-network
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart_policy: always
 
 - name: Create Node Exporter container
   docker_container:

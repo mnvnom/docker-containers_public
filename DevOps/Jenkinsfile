@@ -40,17 +40,17 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            script {
-                def jenkinsContainerId = sh(script: 'docker ps -q --filter "name=jenkins"', returnStdout: true).trim()
-                def allContainers = sh(script: 'docker ps -a -q', returnStdout: true).trim().split('\n')
-                for (containerId in allContainers) {
-                    if (containerId != jenkinsContainerId) {
-                        sh "docker stop ${containerId} && docker rm ${containerId}"
-                    }
-                }
-            }
-        }
-    }
+    // post {
+    //     always {
+    //         script {
+    //             def jenkinsContainerId = sh(script: 'docker ps -q --filter "name=jenkins"', returnStdout: true).trim()
+    //             def allContainers = sh(script: 'docker ps -a -q', returnStdout: true).trim().split('\n')
+    //             for (containerId in allContainers) {
+    //                 if (containerId != jenkinsContainerId) {
+    //                     sh "docker stop ${containerId} && docker rm ${containerId}"
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }

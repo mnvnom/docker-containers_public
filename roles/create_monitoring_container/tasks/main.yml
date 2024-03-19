@@ -1,24 +1,24 @@
 ---
-# - name: Create Prometheus configuration directory
-#   file:
-#     path: /etc/prometheus
-#     state: directory
+- name: Create Prometheus configuration directory
+  file:
+    path: /etc/prometheus
+    state: directory
 
-# - name: Copy Prometheus configuration file using template
-#   template:
-#     src: prometheus.yml.j2
-#     dest: /etc/prometheus/prometheus.yml
+- name: Copy Prometheus configuration file using template
+  template:
+    src: prometheus.yml.j2
+    dest: /etc/prometheus/prometheus.yml
 
-# - name: Create Prometheus container
-#   docker_container:
-#     name: prometheus_container
-#     image: prom/prometheus
-#     state: started
-#     ports:
-#       - "9090:9090"
-#     volumes:
-#       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-#     restart_policy: always
+- name: Create Prometheus container
+  docker_container:
+    name: prometheus_container
+    image: prom/prometheus
+    state: started
+    ports:
+      - "9090:9090"
+    volumes:
+      - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    restart_policy: always
 
 - name: create docker-compose.yml file for Node Exporter
   template:
@@ -30,23 +30,23 @@
   args:
     chdir: /opt/
 
-# - name: Create Grafana container
-#   docker_container:
-#     name: grafana_container
-#     image: grafana/grafana
-#     state: started
-#     ports:
-#       - "3000:3000"
+- name: Create Grafana container
+  docker_container:
+    name: grafana_container
+    image: grafana/grafana
+    state: started
+    ports:
+      - "3000:3000"
 
-# - name: Create Cadvisor container
-#   docker_container:
-#     name: "cadvisor-exporter"
-#     image: google/cadvisor
-#     ports:
-#      - "9200:8080"
-#     volumes:
-#      - "/:/rootfs:ro"
-#      - "/var/run:/var/run:rw"
-#      - "/sys:/sys:ro"
-#      - "/var/lib/docker/:/var/lib/docker:ro"
-#     restart_policy: always
+- name: Create Cadvisor container
+  docker_container:
+    name: "cadvisor-exporter"
+    image: google/cadvisor
+    ports:
+     - "9200:8080"
+    volumes:
+     - "/:/rootfs:ro"
+     - "/var/run:/var/run:rw"
+     - "/sys:/sys:ro"
+     - "/var/lib/docker/:/var/lib/docker:ro"
+    restart_policy: always

@@ -20,15 +20,17 @@
       - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     restart_policy: always
 
-- name: create docker-compose.yml file for Node Exporter
-  template:
-    src: docker-compose.yml.j2
-    dest: /opt/docker-compose.yml
-
-- name: start Node Exporter container from docker-compose.yml file
-  command: docker-compose up -d
-  args:
-    chdir: /opt/
+- name: Create Node Exporter container
+  docker_container:
+    name: node_exporter_container
+    image: quay.io/prometheus/node-exporter:latest
+    state: started
+    command:
+      - '--path.rootfs=/host'
+    network_mode: host
+    volumes:
+      - '/:/host:ro,rslave'
+    restart_policy: always
 
 - name: Create Grafana container
   docker_container:

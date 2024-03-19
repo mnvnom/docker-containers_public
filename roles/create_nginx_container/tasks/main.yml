@@ -20,5 +20,3 @@
       - "80:80"
     volumes:
       - /opt/front:/usr/share/nginx/html
-    networks:
-      - name: prometheus-network

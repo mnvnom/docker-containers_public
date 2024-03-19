@@ -46,6 +46,37 @@
     name: docker-ce
     state: present
 
-- name: Create Docker network
-  docker_network:
-    name: prometheus-network
+- name: install docker-compose frome pip
+  pip:
+    name: docker-compose
+    state: present
+    executable: pip3
+
+- name: install required system packages for docker
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - wget
+
+- name: download latest version docker-compose
+# yamllint disable-line rule:line-length
+  shell: wget -O /usr/local/bin/docker-compose https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)
+  become: true
+
+
+- name: make docker-compose executable
+  file:
+    path: /usr/local/bin/docker-compose
+    mode: 'a+x'
+  become: true
+
+- name: check install docker-compose
+  shell: docker-compose --version
+  register: docker_compose_version
+  ignore_errors: true
+
+- name: get version docker-compose
+  debug:
+    msg: "Docker Compose is installed,{{ docker_compose_version.stdout }}"
+  when: docker_compose_version is succeeded

@@ -4,10 +4,10 @@
   become: true
   roles:
    - install_docker
-   - create_vpn_container
+  #  - create_vpn_container
    - create_monitoring_container
-   - create_nginx_container
-   - create_jenkins_container
+  #  - create_nginx_container
+  #  - create_jenkins_container
   tags:
    - run_all_containers
 
